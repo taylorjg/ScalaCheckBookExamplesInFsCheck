@@ -1,7 +1,7 @@
 
 ## Description
 
-The book, [_ScalaCheck: The Definitive Guide_](http://booksites.artima.com/scalacheck), contains some nice examples
+The book, [_ScalaCheck: The Definitive Guide_](http://www.artima.com/shop/scalacheck), contains some nice examples
 of property-based testing. The idea of this repo is to port some of these
 examples from Scala / ScalaCheck to C# / FsCheck.
 
