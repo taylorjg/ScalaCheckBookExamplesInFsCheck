@@ -8,11 +8,15 @@ examples from Scala / ScalaCheck to C# / FsCheck.
 ## Progress
 
 * Chapter 4
-    * ~~4.6 Constructing optimal output~~
+    * ~~[4.6 Constructing optimal output](http://booksites.artima.com/scalacheck/examples/html/ch04.html#sec6)~~
 * Chapter 5
-	* _all still todo_ 
+    * TODO 
+	    * [Investigating property failures](http://booksites.artima.com/scalacheck/examples/html/ch05.html#sec1)
+    	* [ScalaCheck's property combinators](http://booksites.artima.com/scalacheck/examples/html/ch05.html#sec2) 
 * Chapter 6 
-	* _all still todo_ 
+    * TODO 
+	    * [Generator combinators](http://booksites.artima.com/scalacheck/examples/html/ch06.html#sec1) 
+	    * [Custom test case simplification](http://booksites.artima.com/scalacheck/examples/html/ch06.html#sec2) 
 
 ## Links
 
