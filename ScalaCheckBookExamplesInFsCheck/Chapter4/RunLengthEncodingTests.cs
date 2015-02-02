@@ -18,7 +18,7 @@ namespace ScalaCheckBookExamplesInFsCheck.Chapter4
         private static readonly Configuration Configuration = Config.ToConfiguration();
 
         [Test]
-        public void RunLengthEncodingPropertyFluent()
+        public void RunLengthEncodingTestFluent()
         {
             Spec
                 .For(GenOutput, r =>
@@ -31,7 +31,7 @@ namespace ScalaCheckBookExamplesInFsCheck.Chapter4
         }
 
         [Test]
-        public void RunLengthEncodingProperty()
+        public void RunLengthEncodingTest()
         {
             var arb = Arb.fromGen(GenOutput);
             var body = FSharpFunc<IEnumerable<Tuple<int, char>>, bool>.FromConverter(r =>
