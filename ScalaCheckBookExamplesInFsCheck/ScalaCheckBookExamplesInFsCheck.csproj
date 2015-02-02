@@ -68,13 +68,14 @@
   <ItemGroup>
     <Compile Include="Chapter4\RunLengthEncoding.cs" />
     <Compile Include="Chapter4\RunLengthEncodingTests.cs" />
+    <Compile Include="Chapter5\Interleaving.cs" />
+    <Compile Include="Chapter5\InterleavingTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Chapter5\" />
     <Folder Include="Chapter6\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
