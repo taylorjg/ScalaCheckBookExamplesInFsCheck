@@ -8,9 +8,9 @@ namespace ScalaCheckBookExamplesInFsCheck.Chapter4
     {
         public static IEnumerable<Tuple<int, T>> RunLengthEnc<T>(IEnumerable<T> xs)
         {
-            var previousIsValid = false;
-            var previous = default(T);
-            var previousRepeatCount = 0;
+            var firstTimeThough = true;
+            var previousElement = default(T);
+            var previousElementRepeatCount = 0;
 
             using (var e = xs.GetEnumerator())
             {
@@ -18,29 +18,29 @@ namespace ScalaCheckBookExamplesInFsCheck.Chapter4
                 {
                     if (!e.MoveNext())
                     {
-                        yield return Tuple.Create(previousRepeatCount, previous);
+                        if (previousElementRepeatCount > 0) yield return Tuple.Create(previousElementRepeatCount, previousElement);
                         yield break;
                     }
 
-                    if (!previousIsValid)
+                    if (firstTimeThough)
                     {
-                        previous = e.Current;
-                        previousRepeatCount = 1;
-                        previousIsValid = true;
+                        previousElement = e.Current;
+                        previousElementRepeatCount = 1;
+                        firstTimeThough = false;
+                        continue;
                     }
-                    else
+
+                    if (EqualityComparer<T>.Default.Equals(e.Current, previousElement))
                     {
-                        if (EqualityComparer<T>.Default.Equals(e.Current, previous))
-                        {
-                            previousRepeatCount++;
-                        }
-                        else
-                        {
-                            yield return Tuple.Create(previousRepeatCount, previous);
-                            previous = e.Current;
-                            previousRepeatCount = 1;
-                        }
+                        previousElementRepeatCount++;
+                        continue;
                     }
+
+                    System.Diagnostics.Debug.Assert(previousElementRepeatCount >= 1);
+                    yield return Tuple.Create(previousElementRepeatCount, previousElement);
+
+                    previousElement = e.Current;
+                    previousElementRepeatCount = 1;
                 }
             }
         }
