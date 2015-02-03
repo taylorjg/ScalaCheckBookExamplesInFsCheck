@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Dynamic;
 using System.Linq;
 using FsCheck;
 using FsCheck.Fluent;
@@ -46,15 +45,15 @@ namespace ScalaCheckBookExamplesInFsCheck.Chapter4
         }
 
         [FsCheck.NUnit.Property(Verbose = true, Arbitrary = new[] { typeof(LocalArbitraties) })]
-        public Property RunLengthEncodingPropertyFluent()
+        public Property RunLengthEncodingPropertyFluent(IEnumerable<Tuple<int, char>> rParam)
         {
             return Spec
-                .ForAny((Func<IEnumerable<Tuple<int, char>>, bool>) (r =>
+                .For(Any.Value(rParam), r =>
                 {
                     var original = r.ToList();
                     var actual = RLE.RunLengthEnc(RLE.RunLengthDec(original));
                     return actual.SequenceEqual(original);
-                }))
+                })
                 .Build();
         }
 

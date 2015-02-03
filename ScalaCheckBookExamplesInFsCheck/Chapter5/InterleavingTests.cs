@@ -25,22 +25,19 @@ namespace ScalaCheckBookExamplesInFsCheck.Chapter5
                 {
                     var res = Interleaving.Interleave(xs, ys);
                     return xs.Count + ys.Count == res.Count();
-                })
-                .Label("length")
+                }).Label("length")
                 .And((xs, ys) =>
                 {
                     var res = Interleaving.Interleave(xs, ys);
                     var idxs = Enumerable.Range(0, Math.Min(xs.Count, ys.Count)).ToList();
                     return xs.SequenceEqual(idxs.Select(idx => res[2 * idx]).Concat(res.Skip(2 * ys.Count)));
-                })
-                .Label("zip xs")
+                }, "zip xs")
                 .And((xs, ys) =>
                 {
                     var res = Interleaving.Interleave(xs, ys);
                     var idxs = Enumerable.Range(0, Math.Min(xs.Count, ys.Count)).ToList();
                     return ys.SequenceEqual(idxs.Select(idx => res[2 * idx + 1]).Concat(res.Skip(2 * xs.Count)));
-                })
-                .Label("zip ys")
+                }, "zip ys")
                 .Check(Configuration);
         }
 
@@ -58,6 +55,30 @@ namespace ScalaCheckBookExamplesInFsCheck.Chapter5
                         PropExtensions.Label(ys.SequenceEqual(idxs.Select(idx => res[2 * idx + 1]).Concat(res.Skip(2 * xs.Count))), "zip ys"));
                 }));
             Check.One(Config, body);
+        }
+
+        [FsCheck.NUnit.Property(Verbose = true)]
+        public Property InterleavePropertyFluent(IList<int> xsParam, IList<int> ysParam)
+        {
+            return Spec
+                .For(Any.Value(xsParam), Any.Value(ysParam), (xs, ys) =>
+                {
+                    var res = Interleaving.Interleave(xs, ys);
+                    return xs.Count + ys.Count == res.Count();
+                }).Label("length")
+                .And((xs, ys) =>
+                {
+                    var res = Interleaving.Interleave(xs, ys);
+                    var idxs = Enumerable.Range(0, Math.Min(xs.Count, ys.Count)).ToList();
+                    return xs.SequenceEqual(idxs.Select(idx => res[2*idx]).Concat(res.Skip(2*ys.Count)));
+                }, "zip xs")
+                .And((xs, ys) =>
+                {
+                    var res = Interleaving.Interleave(xs, ys);
+                    var idxs = Enumerable.Range(0, Math.Min(xs.Count, ys.Count)).ToList();
+                    return ys.SequenceEqual(idxs.Select(idx => res[2*idx + 1]).Concat(res.Skip(2*xs.Count)));
+                }, "zip ys")
+                .Build();
         }
 
         [FsCheck.NUnit.Property(Verbose = true)]
