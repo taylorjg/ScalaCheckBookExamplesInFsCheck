@@ -68,6 +68,7 @@
   <ItemGroup>
     <Compile Include="Chapter4\RunLengthEncoding.cs" />
     <Compile Include="Chapter4\RunLengthEncodingTests.cs" />
+    <Compile Include="Chapter5\CollectingTestStatistics.cs" />
     <Compile Include="Chapter5\Interleaving.cs" />
     <Compile Include="Chapter5\InterleavingTests.cs" />
     <Compile Include="FsCheckAddin.cs" />
