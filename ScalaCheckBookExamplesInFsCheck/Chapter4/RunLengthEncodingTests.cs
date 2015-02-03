@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using FsCheck;
 using FsCheck.Fluent;
@@ -9,6 +10,7 @@ using NUnit.Framework;
 
 namespace ScalaCheckBookExamplesInFsCheck.Chapter4
 {
+    using Property = Gen<Rose<Result>>;
     using RLE = RunLengthEncoding;
 
     [TestFixture]
@@ -43,6 +45,27 @@ namespace ScalaCheckBookExamplesInFsCheck.Chapter4
             Check.One(Config, Prop.forAll(arb, body));
         }
 
+        [FsCheck.NUnit.Property(Verbose = true, Arbitrary = new[] { typeof(LocalArbitraties) })]
+        public Property RunLengthEncodingPropertyFluent()
+        {
+            return Spec
+                .ForAny((Func<IEnumerable<Tuple<int, char>>, bool>) (r =>
+                {
+                    var original = r.ToList();
+                    var actual = RLE.RunLengthEnc(RLE.RunLengthDec(original));
+                    return actual.SequenceEqual(original);
+                }))
+                .Build();
+        }
+
+        [FsCheck.NUnit.Property(Verbose = true, Arbitrary = new[] { typeof(LocalArbitraties) })]
+        public bool RunLengthEncodingProperty(IEnumerable<Tuple<int, char>> r)
+        {
+            var original = r.ToList();
+            var actual = RLE.RunLengthEnc(RLE.RunLengthDec(original));
+            return actual.SequenceEqual(original);
+        }
+
         private static Gen<IEnumerable<Tuple<int, char>>> GenOutput
         {
             get
@@ -71,6 +94,26 @@ namespace ScalaCheckBookExamplesInFsCheck.Chapter4
                 return from n in Gen.choose(1, 20)
                        from c in GenExtensions.AlphaNumChar
                        select Tuple.Create(n, c);
+            }
+        }
+
+        private class LocalArbitraties
+        {
+            // ReSharper disable once UnusedMember.Local
+            public static Arbitrary<IEnumerable<Tuple<int, char>>> ArbitraryOutput
+            {
+                get
+                {
+                    return new ArbOutput();
+                }
+            }
+        }
+
+        private class ArbOutput : Arbitrary<IEnumerable<Tuple<int, char>>>
+        {
+            public override Gen<IEnumerable<Tuple<int, char>>> Generator
+            {
+                get { return GenOutput; }
             }
         }
     }
