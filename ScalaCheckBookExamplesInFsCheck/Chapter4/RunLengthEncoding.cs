@@ -11,6 +11,7 @@ namespace ScalaCheckBookExamplesInFsCheck.Chapter4
             var firstTimeThough = true;
             var previousElement = default(T);
             var previousElementRepeatCount = 0;
+            var defaultEqualityComparer = EqualityComparer<T>.Default;
 
             using (var e = xs.GetEnumerator())
             {
@@ -30,7 +31,7 @@ namespace ScalaCheckBookExamplesInFsCheck.Chapter4
                         continue;
                     }
 
-                    if (EqualityComparer<T>.Default.Equals(e.Current, previousElement))
+                    if (defaultEqualityComparer.Equals(e.Current, previousElement))
                     {
                         previousElementRepeatCount++;
                         continue;
