@@ -73,8 +73,10 @@
     <Compile Include="Chapter4\RunLengthEncodingTests.cs" />
     <Compile Include="Chapter5\ClassifyingTestStatistics.cs" />
     <Compile Include="Chapter5\CollectingTestStatistics.cs" />
+    <Compile Include="Chapter5\ConstantProperties.cs" />
     <Compile Include="Chapter5\Interleaving.cs" />
     <Compile Include="Chapter5\InterleavingTests.cs" />
+    <Compile Include="Chapter5\Throws.cs" />
     <Compile Include="FsCheckAddin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

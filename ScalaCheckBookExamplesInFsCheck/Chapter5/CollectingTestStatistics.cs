@@ -14,6 +14,8 @@ namespace ScalaCheckBookExamplesInFsCheck.Chapter5
     {
         private static readonly Config Config = Config.QuickThrowOnFailure;
 
+        // I don't know how to implement this using FsCheck's fluent API.
+
         [Test]
         public void Test()
         {
