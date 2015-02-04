@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Flinq">
+      <HintPath>..\packages\Flinq.1.0.2.0\lib\net40-Client\Flinq.dll</HintPath>
+    </Reference>
     <Reference Include="FsCheck">
       <HintPath>..\packages\FsCheck.1.0.4\lib\net45\FsCheck.dll</HintPath>
     </Reference>
@@ -68,6 +71,7 @@
   <ItemGroup>
     <Compile Include="Chapter4\RunLengthEncoding.cs" />
     <Compile Include="Chapter4\RunLengthEncodingTests.cs" />
+    <Compile Include="Chapter5\ClassifyingTestStatistics.cs" />
     <Compile Include="Chapter5\CollectingTestStatistics.cs" />
     <Compile Include="Chapter5\Interleaving.cs" />
     <Compile Include="Chapter5\InterleavingTests.cs" />
