@@ -77,15 +77,25 @@
     <Compile Include="Chapter5\Interleaving.cs" />
     <Compile Include="Chapter5\InterleavingTests.cs" />
     <Compile Include="Chapter5\Throws.cs" />
+    <Compile Include="Chapter6\CharacterGenerators.cs" />
+    <Compile Include="Chapter6\ConstantGenerators.cs" />
+    <Compile Include="Chapter6\CustomTestCaseSimplification.cs" />
+    <Compile Include="Chapter6\RecursiveGenerators.cs" />
+    <Compile Include="Chapter6\Pick.cs" />
+    <Compile Include="Chapter6\SomeOf.cs" />
+    <Compile Include="Chapter6\GeneratorFilters.cs" />
+    <Compile Include="Chapter6\ListGenerators.cs" />
+    <Compile Include="Chapter6\NumberGenerators.cs" />
+    <Compile Include="Chapter6\HigherOrderGenerators.cs" />
+    <Compile Include="Chapter6\StringGenerators.cs" />
+    <Compile Include="Chapter6\CustomGenerator.cs" />
     <Compile Include="FsCheckAddin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Chapter6\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
