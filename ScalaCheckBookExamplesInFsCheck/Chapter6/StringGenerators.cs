@@ -1,8 +1,8 @@
 ﻿using System;
-using FsCheck;
 using FsCheck.Fluent;
 using FsCheckUtils;
 using NUnit.Framework;
+using ScalaCheckBookExamplesInFsCheck.Utils;
 
 namespace ScalaCheckBookExamplesInFsCheck.Chapter6
 {
@@ -17,8 +17,7 @@ namespace ScalaCheckBookExamplesInFsCheck.Chapter6
                 from num in GenExtensions.NumStr
                 from id in GenExtensions.Identifier
                 select Tuple.Create(Take4(alpha), Take4(num), Take4(id));
-            var sample = Gen.sample(20, 10, stringsGen);
-            foreach (var value in sample) Console.WriteLine(value);
+            stringsGen.DumpSamples();
         }
 
         private static string Take4(string s)

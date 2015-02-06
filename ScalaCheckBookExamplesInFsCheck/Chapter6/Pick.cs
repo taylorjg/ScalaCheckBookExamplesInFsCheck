@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using FsCheckUtils;
+using NUnit.Framework;
+using ScalaCheckBookExamplesInFsCheck.Utils;
 
 namespace ScalaCheckBookExamplesInFsCheck.Chapter6
 {
@@ -8,6 +10,8 @@ namespace ScalaCheckBookExamplesInFsCheck.Chapter6
         [Test]
         public void Test()
         {
+            var twoStrings = GenExtensions.PickValues(2, "red", "blue", "green", "pink");
+            twoStrings.DumpSamples(Formatters.FormatCollection);
         }
     }
 }

@@ -1,4 +1,7 @@
-﻿using NUnit.Framework;
+﻿using System.Text;
+using FsCheckUtils;
+using NUnit.Framework;
+using ScalaCheckBookExamplesInFsCheck.Utils;
 
 namespace ScalaCheckBookExamplesInFsCheck.Chapter6
 {
@@ -6,8 +9,27 @@ namespace ScalaCheckBookExamplesInFsCheck.Chapter6
     public class SomeOf
     {
         [Test]
-        public void Test()
+        public void NumbersTest()
         {
+            var numbers = GenExtensions.SomeOfValues(1, 2, 3, 4);
+            numbers.DumpSamples(Formatters.FormatCollection);
+        }
+
+        [Test]
+        public void NumberListsTest()
+        {
+            var numbers = GenExtensions.SomeOfValues(1, 2, 3, 4);
+            var numberLists = GenExtensions.SomeOfGenerators(numbers, numbers, numbers);
+            numberLists.DumpSamples(xss =>
+            {
+                var sb = new StringBuilder();
+                sb.AppendLine();
+                foreach (var xs in xss)
+                {
+                    sb.AppendLine(Formatters.FormatCollection(xs));
+                }
+                return sb.ToString();
+            });
         }
     }
 }

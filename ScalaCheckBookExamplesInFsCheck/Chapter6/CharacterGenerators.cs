@@ -1,8 +1,7 @@
-﻿using System;
-using FsCheck;
-using FsCheck.Fluent;
+﻿using FsCheck.Fluent;
 using FsCheckUtils;
 using NUnit.Framework;
+using ScalaCheckBookExamplesInFsCheck.Utils;
 
 namespace ScalaCheckBookExamplesInFsCheck.Chapter6
 {
@@ -19,8 +18,7 @@ namespace ScalaCheckBookExamplesInFsCheck.Chapter6
                 from c4 in GenExtensions.AlphaChar
                 from c5 in GenExtensions.AlphaNumChar
                 select new string(new[] {c1, c2, c3, c4, c5});
-            var sample = Gen.sample(10, 10, genString);
-            foreach (var value in sample) Console.WriteLine(value);
+            genString.DumpSamples();
         }
     }
 }
