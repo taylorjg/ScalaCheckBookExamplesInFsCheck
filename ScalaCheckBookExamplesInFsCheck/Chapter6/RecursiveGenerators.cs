@@ -31,6 +31,11 @@ namespace ScalaCheckBookExamplesInFsCheck.Chapter6
             get { return 1; }
         }
 
+        public override string ToString()
+        {
+            return string.Format("Leaf({0})", Item);
+        }
+
         private readonly T _item;
     }
 
@@ -48,7 +53,13 @@ namespace ScalaCheckBookExamplesInFsCheck.Chapter6
 
         public override int Size
         {
-            get { return _children.Select(child => child.Size).Sum(); }
+            get { return Children.Select(child => child.Size).Sum(); }
+        }
+
+        public override string ToString()
+        {
+            var children = string.Join(", ", Children.Select(child => child.ToString()));
+            return string.Format("Node(List({0}))", children);
         }
 
         private readonly List<Tree<T>> _children;
