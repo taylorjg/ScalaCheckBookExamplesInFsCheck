@@ -9,7 +9,7 @@ namespace ScalaCheckBookExamplesInFsCheck.Chapter6
     public class CharacterGenerators
     {
         [Test]
-        public void Test()
+        public void Sample()
         {
             var genString =
                 from c1 in GenExtensions.NumChar

@@ -8,7 +8,7 @@ namespace ScalaCheckBookExamplesInFsCheck.Chapter6
     public class Pick
     {
         [Test]
-        public void Test()
+        public void Sample()
         {
             var twoStrings = GenExtensions.PickValues(2, "red", "blue", "green", "pink");
             twoStrings.DumpSamples(Formatters.FormatCollection);

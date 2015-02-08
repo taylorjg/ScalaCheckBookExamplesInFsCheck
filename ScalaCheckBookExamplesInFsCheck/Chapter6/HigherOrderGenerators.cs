@@ -17,7 +17,7 @@ namespace ScalaCheckBookExamplesInFsCheck.Chapter6
         private static readonly Config Config = Config.QuickThrowOnFailure;
 
         [Test]
-        public void SequenceTest()
+        public void SequenceSample()
         {
             var numbers = Gen.sequence(ListModule.OfSeq(new[]
             {
@@ -55,7 +55,7 @@ namespace ScalaCheckBookExamplesInFsCheck.Chapter6
         }
 
         [Test]
-        public void OneOfTest()
+        public void OneOfSample()
         {
             var genNotZero = Gen.oneof(new[] {Gen.choose(-10, -1), Gen.choose(1, 10)});
             genNotZero.DumpSamples();

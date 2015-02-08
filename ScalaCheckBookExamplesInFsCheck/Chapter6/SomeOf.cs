@@ -9,14 +9,14 @@ namespace ScalaCheckBookExamplesInFsCheck.Chapter6
     public class SomeOf
     {
         [Test]
-        public void NumbersTest()
+        public void NumbersSample()
         {
             var numbers = GenExtensions.SomeOfValues(1, 2, 3, 4);
             numbers.DumpSamples(Formatters.FormatCollection);
         }
 
         [Test]
-        public void NumberListsTest()
+        public void NumberListsSample()
         {
             var numbers = GenExtensions.SomeOfValues(1, 2, 3, 4);
             var numberLists = GenExtensions.SomeOfGenerators(numbers, numbers, numbers);
