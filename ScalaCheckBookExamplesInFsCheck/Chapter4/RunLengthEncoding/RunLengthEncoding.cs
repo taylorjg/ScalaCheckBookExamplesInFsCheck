@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ScalaCheckBookExamplesInFsCheck.Chapter4
+namespace ScalaCheckBookExamplesInFsCheck.Chapter4.RunLengthEncoding
 {
     internal static class RunLengthEncoding
     {

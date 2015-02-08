@@ -7,13 +7,13 @@ using FsCheckUtils;
 using Microsoft.FSharp.Core;
 using NUnit.Framework;
 
-namespace ScalaCheckBookExamplesInFsCheck.Chapter4
+namespace ScalaCheckBookExamplesInFsCheck.Chapter4.RunLengthEncoding
 {
     using Property = Gen<Rose<Result>>;
     using RLE = RunLengthEncoding;
 
     [TestFixture]
-    public class RunLengthEncodingTests
+    public class Tests
     {
         private static readonly Config Config = Config.VerboseThrowOnFailure;
         private static readonly Configuration Configuration = Config.ToConfiguration();

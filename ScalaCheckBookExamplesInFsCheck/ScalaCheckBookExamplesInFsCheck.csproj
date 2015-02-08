@@ -69,8 +69,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Chapter4\RunLengthEncoding.cs" />
-    <Compile Include="Chapter4\RunLengthEncodingTests.cs" />
+    <Compile Include="Chapter4\RunLengthEncoding\RunLengthEncoding.cs" />
+    <Compile Include="Chapter4\RunLengthEncoding\Tests.cs" />
     <Compile Include="Chapter5\ClassifyingTestStatistics.cs" />
     <Compile Include="Chapter5\CollectingTestStatistics.cs" />
     <Compile Include="Chapter5\ConstantProperties.cs" />
