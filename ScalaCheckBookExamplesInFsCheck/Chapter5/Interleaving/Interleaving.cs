@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace ScalaCheckBookExamplesInFsCheck.Chapter5
+namespace ScalaCheckBookExamplesInFsCheck.Chapter5.Interleaving
 {
     internal static class Interleaving
     {

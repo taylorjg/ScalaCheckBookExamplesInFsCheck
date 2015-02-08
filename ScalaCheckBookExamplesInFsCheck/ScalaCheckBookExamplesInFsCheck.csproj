@@ -74,8 +74,8 @@
     <Compile Include="Chapter5\ClassifyingTestStatistics.cs" />
     <Compile Include="Chapter5\CollectingTestStatistics.cs" />
     <Compile Include="Chapter5\ConstantProperties.cs" />
-    <Compile Include="Chapter5\Interleaving.cs" />
-    <Compile Include="Chapter5\InterleavingTests.cs" />
+    <Compile Include="Chapter5\Interleaving\Interleaving.cs" />
+    <Compile Include="Chapter5\Interleaving\Tests.cs" />
     <Compile Include="Chapter5\Throws.cs" />
     <Compile Include="Chapter6\CustomTestCaseSimplifications\Add.cs" />
     <Compile Include="Chapter6\CharacterGenerators.cs" />

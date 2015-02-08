@@ -7,12 +7,12 @@ using FsCheckUtils;
 using Microsoft.FSharp.Core;
 using NUnit.Framework;
 
-namespace ScalaCheckBookExamplesInFsCheck.Chapter5
+namespace ScalaCheckBookExamplesInFsCheck.Chapter5.Interleaving
 {
     using Property = Gen<Rose<Result>>;
 
     [TestFixture]
-    public class InterleavingTests
+    public class Tests
     {
         private static readonly Config Config = Config.VerboseThrowOnFailure;
         private static readonly Configuration Configuration = Config.ToConfiguration();
