@@ -13,7 +13,16 @@ namespace ScalaCheckBookExamplesInFsCheck.Chapter6.CustomTestCaseSimplifications
     [TestFixture]
     public class Tests
     {
-        private static readonly Config Config = Config.QuickThrowOnFailure.WithStartSize(50);
+        private static readonly Config Config = Config
+            .QuickThrowOnFailure
+            .WithStartSize(100)
+            .WithMaxTest(500);
+
+        private static readonly Config Config2 = Config
+            .Quick
+            .WithStartSize(Config.StartSize)
+            .WithMaxTest(Config.MaxTest)
+            .WithEveryShrink(Config.Verbose.EveryShrink);
 
         [Test]
         public void Sample()
@@ -22,13 +31,23 @@ namespace ScalaCheckBookExamplesInFsCheck.Chapter6.CustomTestCaseSimplifications
         }
 
         [Test]
-        public void Test()
+        public void PassingTestWhereItWorksProperly()
         {
             var shrinker = FSharpFunc<Expression, IEnumerable<Expression>>.FromConverter(ShrinkExpr);
             var arb = Arb.fromGenShrink(GenExpr, shrinker);
             var body = FSharpFunc<Expression, bool>.FromConverter(e => e.Rewrite().Eval() == e.Eval());
             var property = Prop.forAll(arb, body);
             Check.One(Config, property);
+        }
+
+        [Test]
+        public void FalsifiableTestToDemonstrateShrinking()
+        {
+            var shrinker = FSharpFunc<Expression, IEnumerable<Expression>>.FromConverter(ShrinkExpr);
+            var arb = Arb.fromGenShrink(GenExpr, shrinker);
+            var body = FSharpFunc<Expression, bool>.FromConverter(e => e.Rewrite(true).Eval() == e.Eval());
+            var property = Prop.forAll(arb, body);
+            Check.One(Config2, property);
         }
 
         private static Gen<Expression> GenExpr
@@ -43,32 +62,6 @@ namespace ScalaCheckBookExamplesInFsCheck.Chapter6.CustomTestCaseSimplifications
                         Tuple.Create(sz - (int) Math.Sqrt(sz), Gen.resize(sz/2, GenMul))
                     })));
             }
-        }
-
-        private static IEnumerable<Expression> ShrinkExpr(Expression e)
-        {
-            return e.Match(ConstShrinks, AddShrinks, MulShrinks);
-        }
-
-        private static IEnumerable<Expression> ConstShrinks(Const e)
-        {
-            return Arb.shrink(e.Value).Select(value => new Const(value) as Expression);
-        }
-
-        private static IEnumerable<Expression> AddShrinks(Add e)
-        {
-            yield return e.Expression1;
-            yield return e.Expression2;
-            foreach (var x in Arb.shrink(e.Expression1).Select(shrink => new Add(shrink, e.Expression2) as Expression)) yield return x;
-            foreach (var x in Arb.shrink(e.Expression2).Select(shrink => new Add(e.Expression1, shrink) as Expression)) yield return x;
-        }
-
-        private static IEnumerable<Expression> MulShrinks(Mul e)
-        {
-            yield return e.Expression1;
-            yield return e.Expression2;
-            foreach (var x in Arb.shrink(e.Expression1).Select(shrink => new Mul(shrink, e.Expression2) as Expression)) yield return x;
-            foreach (var x in Arb.shrink(e.Expression2).Select(shrink => new Mul(e.Expression1, shrink) as Expression)) yield return x;
         }
 
         private static Gen<Expression> GenConst
@@ -96,6 +89,32 @@ namespace ScalaCheckBookExamplesInFsCheck.Chapter6.CustomTestCaseSimplifications
                     from e2 in GenExpr
                     select new Mul(e1, e2) as Expression;
             }
+        }
+
+        private static IEnumerable<Expression> ShrinkExpr(Expression e)
+        {
+            return e.Match(ConstShrinks, AddShrinks, MulShrinks);
+        }
+
+        private static IEnumerable<Expression> ConstShrinks(Const e)
+        {
+            return Arb.shrink(e.Value).Select(value => new Const(value) as Expression);
+        }
+
+        private static IEnumerable<Expression> AddShrinks(Add e)
+        {
+            yield return e.Expression1;
+            yield return e.Expression2;
+            foreach (var x in ShrinkExpr(e.Expression1).Select(shrink => new Add(shrink, e.Expression2) as Expression)) yield return x;
+            foreach (var x in ShrinkExpr(e.Expression2).Select(shrink => new Add(e.Expression1, shrink) as Expression)) yield return x;
+        }
+
+        private static IEnumerable<Expression> MulShrinks(Mul e)
+        {
+            yield return e.Expression1;
+            yield return e.Expression2;
+            foreach (var x in ShrinkExpr(e.Expression1).Select(shrink => new Mul(shrink, e.Expression2) as Expression)) yield return x;
+            foreach (var x in ShrinkExpr(e.Expression2).Select(shrink => new Mul(e.Expression1, shrink) as Expression)) yield return x;
         }
     }
 }

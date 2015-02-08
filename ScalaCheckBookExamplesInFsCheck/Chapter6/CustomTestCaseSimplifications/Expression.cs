@@ -9,7 +9,7 @@ namespace ScalaCheckBookExamplesInFsCheck.Chapter6.CustomTestCaseSimplifications
             return Show();
         }
 
-        public Expression Rewrite()
+        public Expression Rewrite(bool causeDeliberateError = false)
         {
             return Match(
                 eConst => eConst as Expression,
@@ -17,8 +17,8 @@ namespace ScalaCheckBookExamplesInFsCheck.Chapter6.CustomTestCaseSimplifications
                 {
                     // ReSharper disable ConvertIfStatementToReturnStatement
                     if (eAdd.Expression1.Equals(eAdd.Expression2)) return new Mul(new Const(2), eAdd.Expression1);
-                    if (eAdd.Expression1.Equals(new Const(1))) return eAdd.Expression2;
-                    if (eAdd.Expression2.Equals(new Const(1))) return eAdd.Expression1;
+                    if (eAdd.Expression1.Equals(new Const(causeDeliberateError ? 1 : 0))) return eAdd.Expression2;
+                    if (eAdd.Expression2.Equals(new Const(0))) return eAdd.Expression1;
                     return eAdd;
                     // ReSharper restore ConvertIfStatementToReturnStatement
                 },
