@@ -17,8 +17,8 @@ namespace ScalaCheckBookExamplesInFsCheck.Chapter6.CustomTestCaseSimplifications
                 {
                     // ReSharper disable ConvertIfStatementToReturnStatement
                     if (eAdd.Expression1.Equals(eAdd.Expression2)) return new Mul(new Const(2), eAdd.Expression1);
-                    if (eAdd.Expression1.Equals(new Const(0))) return eAdd.Expression2;
-                    if (eAdd.Expression2.Equals(new Const(0))) return eAdd.Expression1;
+                    if (eAdd.Expression1.Equals(new Const(1))) return eAdd.Expression2;
+                    if (eAdd.Expression2.Equals(new Const(1))) return eAdd.Expression1;
                     return eAdd;
                     // ReSharper restore ConvertIfStatementToReturnStatement
                 },
@@ -37,7 +37,7 @@ namespace ScalaCheckBookExamplesInFsCheck.Chapter6.CustomTestCaseSimplifications
         public abstract int Eval();
         public abstract string Show();
 
-        private T Match<T>(Func<Const, T> constFunc, Func<Add, T> addFunc, Func<Mul, T> mulFunc)
+        public T Match<T>(Func<Const, T> constFunc, Func<Add, T> addFunc, Func<Mul, T> mulFunc)
         {
             if (this is Const) return constFunc(this as Const);
             if (this is Add) return addFunc(this as Add);
