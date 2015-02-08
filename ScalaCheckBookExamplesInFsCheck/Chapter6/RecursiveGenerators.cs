@@ -76,7 +76,7 @@ namespace ScalaCheckBookExamplesInFsCheck.Chapter6
 
         private static Gen<Tree<int>> GenIntTree
         {
-            get { return GenTree(Any.OfType<int>()); }
+            get { return GenTree(Arb.generate<int>()); }
         }
 
         private static Gen<Tree<T>> GenTree<T>(Gen<T> genT)
