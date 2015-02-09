@@ -8,7 +8,7 @@ using Microsoft.FSharp.Core;
 using NUnit.Framework;
 using ScalaCheckBookExamplesInFsCheck.Utils;
 
-namespace ScalaCheckBookExamplesInFsCheck.Chapter6.CustomTestCaseSimplifications
+namespace ScalaCheckBookExamplesInFsCheck.Chapter6.CustomTestCaseSimplification
 {
     [TestFixture]
     public class Tests

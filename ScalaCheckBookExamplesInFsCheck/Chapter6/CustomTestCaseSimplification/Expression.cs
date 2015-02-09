@@ -1,6 +1,6 @@
 using System;
 
-namespace ScalaCheckBookExamplesInFsCheck.Chapter6.CustomTestCaseSimplifications
+namespace ScalaCheckBookExamplesInFsCheck.Chapter6.CustomTestCaseSimplification
 {
     public abstract class Expression
     {
