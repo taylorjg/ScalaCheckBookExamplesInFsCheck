@@ -50,6 +50,24 @@ namespace ScalaCheckBookExamplesInFsCheck.Chapter6.CustomTestCaseSimplification
             Check.One(Config2, property);
         }
 
+        [Test]
+        public void PassingTestWhereItWorksProperlyFluent()
+        {
+            Spec
+                .For(GenExpr, e => e.Rewrite().Eval() == e.Eval())
+                .Shrink(ShrinkExpr)
+                .Check(Config2.ToConfiguration());
+        }
+
+        [Test]
+        public void FalsifiableTestToDemonstrateShrinkingFluent()
+        {
+            Spec
+                .For(GenExpr, e => e.Rewrite(true).Eval() == e.Eval())
+                .Shrink(ShrinkExpr)
+                .Check(Config2.ToConfiguration());
+        }
+
         private static Gen<Expression> GenExpr
         {
             get
