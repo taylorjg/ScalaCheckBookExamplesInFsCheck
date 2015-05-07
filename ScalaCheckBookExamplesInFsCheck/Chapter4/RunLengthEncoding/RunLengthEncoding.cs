@@ -8,10 +8,8 @@ namespace ScalaCheckBookExamplesInFsCheck.Chapter4.RunLengthEncoding
     {
         public static IEnumerable<Tuple<int, T>> RunLengthEnc<T>(IEnumerable<T> xs)
         {
-            var firstTimeThough = true;
-            var previousElement = default(T);
-            var previousElementRepeatCount = 0;
             var defaultEqualityComparer = EqualityComparer<T>.Default;
+            var currTuple = null as Tuple<int, T>;
 
             using (var e = xs.GetEnumerator())
             {
@@ -19,29 +17,26 @@ namespace ScalaCheckBookExamplesInFsCheck.Chapter4.RunLengthEncoding
                 {
                     if (!e.MoveNext())
                     {
-                        if (previousElementRepeatCount > 0) yield return Tuple.Create(previousElementRepeatCount, previousElement);
+                        if (currTuple != null) yield return currTuple;
                         yield break;
                     }
 
-                    if (firstTimeThough)
+                    if (currTuple == null)
                     {
-                        previousElement = e.Current;
-                        previousElementRepeatCount = 1;
-                        firstTimeThough = false;
+                        currTuple = Tuple.Create(1, e.Current);
                         continue;
                     }
 
-                    if (defaultEqualityComparer.Equals(e.Current, previousElement))
+                    if (defaultEqualityComparer.Equals(e.Current, currTuple.Item2))
                     {
-                        previousElementRepeatCount++;
+                        currTuple = Tuple.Create(currTuple.Item1 + 1, currTuple.Item2);
                         continue;
                     }
 
-                    System.Diagnostics.Debug.Assert(previousElementRepeatCount >= 1);
-                    yield return Tuple.Create(previousElementRepeatCount, previousElement);
+                    System.Diagnostics.Debug.Assert(currTuple.Item1 >= 1);
+                    yield return currTuple;
 
-                    previousElement = e.Current;
-                    previousElementRepeatCount = 1;
+                    currTuple = Tuple.Create(1, e.Current);
                 }
             }
         }
